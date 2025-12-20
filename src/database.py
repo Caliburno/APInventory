@@ -13,7 +13,8 @@ def create_database():
     with get_connection() as conn:
         cursor = conn.cursor()
         cursor.executescript(
-            """CREATE TABLE IF NOT EXISTS Employees (
+            """
+            CREATE TABLE IF NOT EXISTS Employees (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL,
                     role TEXT
@@ -50,7 +51,19 @@ def create_database():
                     FOREIGN KEY (client_id) REFERENCES Clients(id),
                     FOREIGN KEY (product_id) REFERENCES Products(id),
                     FOREIGN KEY (employee_id) REFERENCES Employees(id)
-                    ); """)
+                    ); 
+            CREATE TABLE IF NOT EXISTS Purchases (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    product_id INTEGER NOT NULL,
+                    provider_id INTEGER NOT NULL,
+                    employee_id INTEGER NOT NULL,
+                    quantity INTEGER NOT NULL,
+                    total_cost REAL NOT NULL,
+                    FOREIGN KEY (product_id) REFERENCES Products(id),
+                    FOREIGN KEY (provider_id) REFERENCES Providers(id),
+                    FOREIGN KEY (employee_id) REFERENCES Employees(id)
+                    );
+                    """)
 
 def create_employee(name, role):
     """Creates a new employee in the database."""
@@ -226,5 +239,40 @@ def delete_sale(sale_id):
     with get_connection() as conn:
         cursor = conn.cursor()
         cursor.execute("DELETE FROM Sales WHERE id = ?", (sale_id,))
+        conn.commit()
+
+def create_purchase(product_id, provider_id, employee_id, quantity, total_cost):
+    """Creates a new purchase in the database."""
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO Purchases (product_id, provider_id, employee_id, quantity, total_cost) VALUES (?, ?, ?, ?, ?)", (product_id, provider_id, employee_id, quantity, total_cost))
+        conn.commit()
+
+def get_purchase(purchase_id):
+    """Retrieves a specific purchase by ID."""
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM Purchases WHERE id = ?", (purchase_id,))
+        return cursor.fetchone()
+    
+def get_all_purchases():
+    """Retrieves a list of all purchases from the database."""
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM Purchases")
+        return cursor.fetchall()
+    
+def update_purchase(purchase_id, product_id, provider_id, employee_id, quantity, total_cost):
+    """Updates an existing purchase's details."""
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("UPDATE Purchases SET product_id = ?, provider_id = ?, employee_id = ?, quantity = ?, total_cost = ? WHERE id = ?", (product_id, provider_id, employee_id, quantity, total_cost, purchase_id))
+        conn.commit()
+
+def delete_purchase(purchase_id):
+    """Deletes a purchase from the database."""
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM Purchases WHERE id = ?", (purchase_id,))
         conn.commit()
 
