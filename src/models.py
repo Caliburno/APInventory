@@ -1,5 +1,6 @@
+
 class Employee:
-    """It represents an employee of the company, mostly to log who made a sale or purchased from a provider."""
+    """Represents an employee of the company, mostly to log who made a sale or purchased from a provider."""
 
     def __init__(self, id, name, role):
         self.id = id
@@ -30,7 +31,7 @@ class Employee:
         return f"Employee(id={self.id}, name='{self.name}', role='{self.role}')"
     
 class Client:
-    """It represents a client of the company."""
+    """Represents a client of the company."""
 
     def __init__(self, id, name, email, phone):
         self.id = id
@@ -65,19 +66,19 @@ class Client:
         return f"Client(id={self.id}, name='{self.name}', email='{self.email}', phone='{self.phone}')"
     
 class Provider:
-    """It represents a provider of the company."""
+    """Represents a provider of the company."""
 
-    def __init__(self, id, name, service):
+    def __init__(self, id, name, field):
         self.id = id
         self.name = name
-        self.service = service
+        self.service = field
     
     def to_dict(self):
         """Converts the Provider instance to a dictionary to use in JSON responses."""
         return {
             "id": self.id,
             "name": self.name,
-            "service": self.service
+            "service": self.field
         }    
     
     def validate(self):
@@ -89,14 +90,14 @@ class Provider:
         """
         if not self.name or not isinstance(self.name, str):
             raise ValueError("Invalid name")
-        if not self.service or not isinstance(self.service, str):
-            raise ValueError("Invalid service")    
+        if not self.field or not isinstance(self.field, str):
+            raise ValueError("Invalid field")    
     
     def __repr__(self):
-        return f"Provider(id={self.id}, name='{self.name}', service='{self.service}')"
+        return f"Provider(id={self.id}, name='{self.name}', field='{self.field}')"
     
 class Product:
-    """It represents a product sold by the company."""
+    """Represents a product sold by the company."""
 
     def __init__(self, id, name, price, stock):
         self.id = id
@@ -131,25 +132,25 @@ class Product:
         return f"Product(id={self.id}, name='{self.name}', price={self.price}, stock={self.stock})"
 
 class Sale:
-    """It represents a sale made by the company."""
+    """Represents a sale made by the company."""
 
-    def __init__(self, id, product_id, client_id, employee_id, quantity, total_price):
+    def __init__(self, id, product_id, employee_id, client_id, date, total):
         self.id = id
         self.product_id = product_id
-        self.client_id = client_id
         self.employee_id = employee_id
-        self.quantity = quantity
-        self.total_price = total_price
-    
+        self.client_id = client_id
+        self.date = date
+        self.total = total
+
     def to_dict(self):
         """Converts the Sale instance to a dictionary to use in JSON responses."""
         return {
             "id": self.id,
             "product_id": self.product_id,
-            "client_id": self.client_id,
             "employee_id": self.employee_id,
-            "quantity": self.quantity,
-            "total_price": self.total_price
+            "client_id": self.client_id,
+            "date": self.date,
+            "total": self.total
         }    
     
     def validate(self):
@@ -161,20 +162,20 @@ class Sale:
         """
         if not isinstance(self.product_id, int) or self.product_id <= 0:
             raise ValueError("Invalid product ID")
-        if not isinstance(self.client_id, int) or self.client_id <= 0:
-            raise ValueError("Invalid client ID")
         if not isinstance(self.employee_id, int) or self.employee_id <= 0:
             raise ValueError("Invalid employee ID")
-        if not isinstance(self.quantity, int) or self.quantity <= 0:
-            raise ValueError("Invalid quantity")
-        if not isinstance(self.total_price, (int, float)) or self.total_price < 0:
-            raise ValueError("Invalid total price")    
+        if not isinstance(self.client_id, int) or self.client_id <= 0:
+            raise ValueError("Invalid client ID")
+        if not isinstance(self.date, int) or self.date <= 0:
+            raise ValueError("Invalid date")
+        if not isinstance(self.total, (int, float)) or self.total < 0:
+            raise ValueError("Invalid total")    
     
     def __repr__(self):
-        return f"Sale(id={self.id}, product_id={self.product_id}, client_id={self.client_id}, employee_id={self.employee_id}, quantity={self.quantity}, total_price={self.total_price})"
+        return f"Sale(id={self.id}, product_id={self.product_id}, employee_id={self.employee_id}, client_id={self.client_id}, date={self.date}, total={self.total})"
     
 class Purchase:
-    """It represents a purchase made from a provider."""
+    """Represents a purchase made from a provider."""
 
     def __init__(self, id, product_id, provider_id, employee_id, quantity, total_cost):
         self.id = id

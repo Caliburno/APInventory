@@ -1,5 +1,5 @@
 from src.database import create_database
-from src.cli import main
+from api import main
 
 if __name__ == "__main__":
     create_database()

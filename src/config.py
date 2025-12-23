@@ -8,4 +8,4 @@ else:
     BASE_DIR = os.path.dirname(os.path.abspath(__file__)) # Path to the current script
 
 # Define the path to the SQLite database file
-DB_PATH = os.path.join(BASE_DIR, "clinventory.db")
+DB_PATH = os.path.join(BASE_DIR, "apinventory.db")

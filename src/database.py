@@ -43,9 +43,9 @@ def create_database():
                     );
             CREATE TABLE IF NOT EXISTS Sales (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    client_id INTEGER NOT NULL,
                     product_id INTEGER NOT NULL,
                     employee_id INTEGER NOT NULL,
+                    client_id INTEGER NOT NULL,
                     date TEXT NOT NULL,
                     total REAL NOT NULL,
                     FOREIGN KEY (client_id) REFERENCES Clients(id),
