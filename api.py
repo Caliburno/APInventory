@@ -226,5 +226,19 @@ def delete_purchase(purchase_id):
 
 
 @app.route("/")
+def home():
+    return jsonify({
+        "message": "Welcome to APInventory API",
+        "version": "1.0",
+        "endpoints": {
+            "employees": "/employees",
+            "clients": "/clients",
+            "providers": "/providers",
+            "products": "/products",
+            "sales": "/sales",
+            "purchases": "/purchases"
+        }
+    }), 200
+
 if __name__ == '__main__':
     app.run(debug=True)
