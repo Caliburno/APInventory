@@ -106,7 +106,7 @@ def add_client():
     db.create_client(name, email, phone)
     return jsonify({"message": "Client added successfully"}), 201
 
-@app.route("/provider", methods=["POST"])
+@app.route("/providers", methods=["POST"])
 def add_provider():
     data = request.get_json()
 
@@ -184,7 +184,7 @@ def delete_client(client_id):
     db.delete_client(client_id)
     return jsonify({"message": "Client deleted successfully"}), 200
 
-@app.route("/proficers/<int:provider_id>", methods=["DELETE"])
+@app.route("/profiders/<int:provider_id>", methods=["DELETE"])
 def delete_provider(provider_id):
 
     provider = db.get_provider(provider_id)
