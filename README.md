@@ -13,7 +13,8 @@ Complete REST API with CRUD operations for:
 - **Clients**: Track customer information  
 - **Providers**: Maintain supplier database
 - **Products**: Catalog inventory items with pricing and stock levels
-- **Sales**: Record and track transactions
+- **Sales**: Record and track transactions with customers
+- **Purchases**: Record and track transactions with providers
 
 ## Architecture
 
@@ -73,6 +74,13 @@ The database layer remains identical to CLInventory, demonstrating that well-arc
 - `POST /sales` - Create new sale
 - `PUT /sales/<id>` - Update sale
 - `DELETE /sales/<id>` - Delete sale
+
+### Purchases
+- `GET /purchases` - List all purchases
+- `GET /purchases/<id>` - Get specific purchase
+- `POST /purchases` - Create new purchase
+- `PUT /purchases/<id>` - Update purchase
+- `DELETE /purchases/<id>` - Delete purchase
 
 ## Installation & Setup
 
